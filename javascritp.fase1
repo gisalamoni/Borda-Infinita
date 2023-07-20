@@ -1,1 +1,311 @@
-teste
+//tamanho de cada elemento
+const tam_elem = 30;
+
+const MAPA = [
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 7, 7, 7, 0, 0, 3, 3, 0, 0, 8, 7, 0, 7, 8, 0, 0, 7, 8, 8, 0, 3, 8, 1],
+  [1, 4, 8, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 1],
+  [1, 0, 0, 2, 0, 0, 8, 0, 0, 0, 0, 3, 0, 0, 4, 8, 8, 0, 0, 0, 0, 0, 0, 1],
+  [1, 8, 0, 0, 2, 0, 0, 0, 3, 0, 8, 4, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1],
+  [1, 2, 8, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3, 2, 0, 0, 0, 0, 1],
+  [1, 8, 0, 0, 2, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 8, 8, 1],
+  [1, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 4, 8, 0, 3, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 2, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 3, 0, 8, 0, 0, 0, 2, 0, 7, 0, 0, 0, 0, 0, 0, 2, 8, 2, 0, 0, 4, 1],
+  [1, 0, 8, 8, 4, 0, 0, 2, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1],
+  [1, 0, 3, 0, 0, 0, 2, 8, 0, 0, 0, 0, 0, 0, 0, 8, 4, 0, 0, 0, 0, 0, 0, 1],
+  [1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0, 1],
+  [1, 0, 0, 0, 0, 3, 0, 0, 2, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 7, 7, 0, 0, 0, 0, 4, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 3, 8, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 8, 0, 7, 0, 0, 8, 8, 8, 3, 0, 1],
+  [1, 0, 3, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 4, 4, 0, 0, 1],
+  [1, 0, 0, 0, 0, 0, 0, 0, 0, 8, 4, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 1],
+  [1, 2, 0, 2, 2, 0, 8, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 1],
+  [1, 0, 2, 0, 8, 0, 2, 0, 0, 3, 0, 8, 8, 0, 2, 0, 2, 0, 0, 3, 8, 7, 0, 1],
+  [1, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+]
+
+const elem_MAPA = MAPA.length;
+
+//imagens
+
+const eh_parede =1
+const arvore = 2
+const arvore1 = 3
+const grama = 4
+const poco = 5
+const arvore2 = 7
+const casa1 = 8
+
+
+
+let imgArvore
+let imgArvore1
+let imgGrama
+let imgPoco
+let imgArvore2
+let imgCasa1
+
+let ninaDIR
+let ninaESQ
+let ninaCOS
+let ninaFRE
+
+//Sol 
+let sunX = 0; // posição horizontal inicial do Sol
+const sunY = 100; // posição vertical fixa do Sol
+const sunSpeed = 0.5; // velocidade do Sol (quantos pixels ele se move por quadro)
+const sunSize = 30; // tamanho do Sol (diâmetro)
+let sunDuration = 850; // O Sol ficará visível por 2000 quadros 
+
+//medidas da tela
+const largura = 720;
+const altura = 720;
+
+
+//cores
+let branco
+let preto
+let vermelho
+let cinza
+let verde
+
+
+
+//status do jogo
+var gameOver
+var status = 'jogo parado'
+
+let contadorP = 0;
+
+
+var jogador;
+let Fonte; 
+
+function preload () {
+  Fonte = loadFont('pixelfonte.otf'); 
+  ninaDIR = loadImage('ninaDIR.png')
+  ninaESQ = loadImage('ninaESQ.png')
+  ninaCOS = loadImage('ninaCOS.png')
+  ninaFRE = loadImage('ninaFRE.png')
+  
+  imgArvore = loadImage('arvore.png')
+  imgArvore1 = loadImage('arvore1.png')
+  imgArvore2 = loadImage('arvore2.png')
+  imgGrama = loadImage('grama.png')
+  imgPoco = loadImage('poco.png')
+  imgCasa1 = loadImage('casa1.png')
+
+
+}
+
+
+function setup() {
+  createCanvas(largura, altura);
+  jogador = new Jogador(largura / 2, altura / 2);
+  branco = color(255, 255, 255);
+  verde = color(72,189,92);
+  vermelho = color(255, 0, 0);
+  cinza = color(200, 200, 200);
+  areia = color(191,106,49)
+
+}
+
+//tecla P
+function keyPressed() {
+   if (keyCode === 32 && status == 'jogo parado') {
+      reiniciaJogo();
+}
+
+  if (jogador.x >= 345 && jogador.x <= 380 && jogador.y >= 315 && jogador.y <= 350 && sunDuration>=50 && sunDuration<=200){
+    if (key === "p" || key === "P") {
+      contadorP++;
+  }
+}
+ 
+}
+
+function draw() {
+
+  background (verde);
+  desenhoMAPA();
+  jogador.show();
+  movJogador();
+  pegarAgua();
+  chatPoço();
+  sunX += sunSpeed; // Movimentar o Sol horizontalmente
+
+// Verificar se o Sol ultrapassou a tela à direita
+  if (sunX > width + sunSize/2) {
+    sunX = -sunSize/2;     // Reiniciar o Sol no lado esquerdo da tela
+  }
+
+  // Verificar se ainda há duração para exibir o Sol
+  if (sunDuration > 0) { // Desenhar o Sol somente quando houver duração restante
+    gameOver = false
+    fill('yellow');
+    noStroke();
+    ellipse(sunX, sunY, sunSize);
+    sunDuration--;     // Reduzir a duração em cada quadro
+    console.log(sunDuration)
+  }
+  else {
+    gameOver =true
+    fill(vermelho);
+    textFont(Fonte)
+    textSize(50)
+    text("GAME OVER", 230, 360)
+    textSize(20)
+    text("Pressione espaço para reiniciar", 170, 400)
+}
+
+}
+  
+
+
+function reiniciaJogo () {
+    gameOver = false;
+    sunX = 0; // posição horizontal inicial do Sol
+    sunDuration = 850;   
+}
+
+
+
+//criando o jogador
+class Jogador {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.lar = 20;
+    this.alt = 20;
+    this.speed = 0.25;
+
+}
+  
+  show () {
+    
+    
+    if (keyCode === RIGHT_ARROW) {
+      image(ninaDIR,this.x,this.y, this.lar, this.alt)
+    }
+    
+    if (keyCode === LEFT_ARROW) {
+      image(ninaESQ,this.x,this.y, this.lar, this.alt)
+    }
+    
+    if (keyCode === UP_ARROW) {
+      image(ninaCOS,this.x,this.y, this.lar, this.alt)
+    }
+    
+    if (keyCode === DOWN_ARROW) {
+      image(ninaFRE,this.x,this.y, this.lar, this.alt)
+    }    
+    else {
+      image(ninaFRE,this.x,this.y, this.lar, this.alt)
+
+    }
+  }
+}
+
+//Desenho do mapa 
+function desenhoMAPA() {
+  noStroke();
+  
+  for (let rowIndex = 0; rowIndex < MAPA.length; rowIndex++) {
+    let tamelemY = altura / elem_MAPA;
+    
+    for (let colIndex = 0; colIndex < MAPA[rowIndex].length; colIndex++) {
+      let tamelemX = largura / MAPA[rowIndex].length;
+      
+      if (MAPA[rowIndex][colIndex] === eh_parede) {
+        fill(cinza);
+        rect(colIndex * tamelemX, rowIndex * tamelemY, tam_elem);
+      
+      } else if (MAPA[rowIndex][colIndex] === 2) { // Se o valor da célula for igual a 2 (cor marrom), desenhe a imagem
+        image(imgArvore, colIndex * tamelemX, rowIndex * tamelemY, tam_elem, tam_elem);
+      }
+      else if (MAPA[rowIndex][colIndex] === 3) { // Se o valor da célula for igual a 2 (cor marrom), desenhe a imagem
+        image(imgArvore1, colIndex * tamelemX, rowIndex * tamelemY, tam_elem, tam_elem);
+      }
+      else if (MAPA[rowIndex][colIndex] === 4) { // Se o valor da célula for igual a 2 (cor marrom), desenhe a imagem
+        image(imgGrama, colIndex * tamelemX, rowIndex * tamelemY, tam_elem, tam_elem);
+      }
+        else if (MAPA[rowIndex][colIndex] === 5) { // Se o valor da célula for igual a 2 (cor marrom), desenhe a imagem
+        image(imgPoco, colIndex * tamelemX, rowIndex * tamelemY, tam_elem, tam_elem);
+        }
+      
+        else if (MAPA[rowIndex][colIndex] === 7) { // Se o valor da célula for igual a 2 (cor marrom), desenhe a imagem
+        image(imgArvore2, colIndex * tamelemX, rowIndex * tamelemY, tam_elem, tam_elem);
+      
+        }
+      
+      else if (MAPA[rowIndex][colIndex] === 8) { // Se o valor da célula for igual a 2 (cor marrom), desenhe a imagem
+       image(imgCasa1, colIndex * tamelemX, rowIndex * tamelemY, tam_elem, tam_elem);
+      
+        }
+      
+      else {
+        fill(verde);
+        rect(colIndex * tamelemX, rowIndex * tamelemY, tam_elem);
+       
+      }
+    }
+  }
+}
+
+//Movimento do jogador
+function movJogador() {
+ 
+  let dx = 0;
+  let dy =0;
+  
+  if (keyIsDown(UP_ARROW)) {
+    dy -= 5;
+  }
+  
+  if (keyIsDown(DOWN_ARROW)) {
+    dy += 5;
+  }
+  
+  if (keyIsDown(LEFT_ARROW)) {
+    dx -= 5;  
+  }
+  
+  if (keyIsDown(RIGHT_ARROW)) {
+    dx += 5; 
+  }
+  
+  let currentColumn = floor((jogador.x + 10 + dx) / tam_elem);
+  let currentRow = floor((jogador.y + 10 + dy) / tam_elem);
+  
+   if (MAPA[currentRow][currentColumn] == 0) {
+    jogador.x += dx;
+    jogador.y += dy;
+   }
+  
+  console.log("posica em x" + jogador.x + ", posicao em y " + jogador.y)
+  
+}
+
+
+//funcao que reseta o tempo 
+function pegarAgua () {
+  if (contadorP == 3) {
+    contadorP = 0;
+    reiniciaJogo()
+  }
+  
+}
+ 
+function chatPoço () {
+  if (jogador.x >= 345 && jogador.x <= 380 && jogador.y >= 315 && jogador.y <= 350 && sunDuration>=50 && sunDuration<=200) { 
+    fill(branco)
+    textFont(Fonte)
+    textSize(10)
+    text('Aperte 3x a letra P para pegar água', 280, 410)
+
+}
+}
