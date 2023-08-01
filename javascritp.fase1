@@ -40,6 +40,7 @@ const poco = 5
 const arvore2 = 7
 const casa1 = 8
 
+let tela = 'instrucoes'; // Começamos na tela de instruções
 
 
 let imgArvore
@@ -114,6 +115,20 @@ function setup() {
 
 }
 
+function exibirInstrucoes() {
+  background(0); // Fundo branco para a tela de instruções
+  fill(255);
+  textSize(40);
+  textFont(Fonte);
+  textAlign(CENTER);
+  text("Instruções do Jogo", largura / 2, altura / 2 - 50);
+  textSize(25);
+  text("Use as setas para mover a personagem.", largura / 2, altura / 2);
+  text("Aperte 'P' três vezes para pegar água.", largura / 2, altura / 2 + 30);
+  text("Pressione espaço para começar.", largura / 2, altura / 2 + 100);
+}
+
+
 //tecla P
 function keyPressed() {
    if (keyCode === 32 && status == 'jogo parado') {
@@ -125,10 +140,18 @@ function keyPressed() {
       contadorP++;
   }
 }
- 
+  if (keyCode === 32 && tela === 'instrucoes') {
+    tela = 'jogo'; // Altera o estado para 'jogo'
+    return; // Sai da função para não executar mais nenhuma ação ao pressionar a tecla
+  }
 }
 
 function draw() {
+  
+  if (tela === 'instrucoes') {
+    exibirInstrucoes();
+    return; // Sai da função draw() para não exibir o jogo ainda
+  }
 
   background (verde);
   desenhoMAPA();
@@ -150,16 +173,15 @@ function draw() {
     noStroke();
     ellipse(sunX, sunY, sunSize);
     sunDuration--;     // Reduzir a duração em cada quadro
-    console.log(sunDuration)
   }
   else {
     gameOver =true
     fill(vermelho);
     textFont(Fonte)
     textSize(50)
-    text("GAME OVER", 230, 360)
+    text("GAME OVER", largura/2, 360)
     textSize(20)
-    text("Pressione espaço para reiniciar", 170, 400)
+    text("Pressione espaço para reiniciar", largura/2, 400)
 }
 
 }
@@ -285,10 +307,9 @@ function movJogador() {
     jogador.x += dx;
     jogador.y += dy;
    }
-  
-  console.log("posica em x" + jogador.x + ", posicao em y " + jogador.y)
-  
+    
 }
+
 
 
 //funcao que reseta o tempo 
@@ -309,3 +330,4 @@ function chatPoço () {
 
 }
 }
+
